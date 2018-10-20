@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.BorrowMapper">
+  
+  <insert id="insertBorrow" parameterType="BorrowBean" useGeneratedKeys="true" keyProperty="bo_id">
+  		insert into u_b_borrow(bo_u_id,bo_b_id,bo_date,bo_number)values(#{ub.id},#{book.id},#{da},#{num});
+  </insert>
+  <select id="findById" parameterType="int" resultMap="mapId">
+   select * from u_b_borrow where bo_b_id = #{id}
+  </select>
+   <resultMap type="BorrowBean" id="mapId">
+  	<id property="id" column="bo_id"/>
+  	<result property="book.id" column="bo_b_id"/>
+  	<result property="ub.id" column="bo_u_id"/>
+  </resultMap>
+</mapper>

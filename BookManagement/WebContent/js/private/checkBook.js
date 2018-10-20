@@ -1,0 +1,20 @@
+function checkBook(){
+	$.ajax({
+		type:"post",
+		url:"/BookManagement/check/checkBook.action",
+		dataType:"json",
+		async:true,
+		data:{
+			"bean.title":$("#bookName").val()
+		},
+		success:function(data){
+			if(data!="null"){
+				$("#title").css("display","block"),
+				$("#submit_button").attr("disabled","disabled")
+			}else{
+				$("#title").css("display","none"),
+				$("#submit_button").removeAttr("disabled")
+			}
+		}
+	});
+}

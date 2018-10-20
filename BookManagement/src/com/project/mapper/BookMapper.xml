@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.BookMapper">
+  <select id="findById" parameterType="int" resultType="BookBean">
+    select * from book where id = #{id}
+  </select>
+  <select id="findByName" parameterType="String" resultType="BookBean">
+    select * from book where title = #{title}
+  </select>
+  <select id="findAll"  resultMap="map">
+    select * from book
+  </select>
+  <resultMap type="BookBean" id="map">
+  	<id property="id" column="id"/>
+  	<result property="title" column="title"/>
+  	<result property="image" column="image"/>
+  	<result property="author" column="author"/>
+  	<result property="publisher" column="publisher"/>
+  	<result property="time" column="time"/>
+  	<result property="price" column="price"/>
+  	<result property="balance" column="balance"/>
+  	<result property="depict" column="depict"/>
+  </resultMap>
+  <insert id="insert" parameterType="BookBean" useGeneratedKeys="true" keyProperty="id">
+    insert into book(title,image,author,publisher,time,price,balance,depict) values (#{title},#{image},#{author},#{publisher},#{time},#{price},#{balance},#{depict})
+  </insert>
+  <delete id="del" parameterType="int">
+  	delete from book where id=#{id}
+  </delete>
+  <update id="update" parameterType="BookBean">
+  	<!-- update book set balance=#{balance} where id=#{id} -->	
+  	update book
+ 	<trim prefix="set" suffixOverrides=",">
+		<if test="title!=null">title=#{title},</if>
+  		<if test="image!=null">image=#{image},</if>
+  		<if test="author!=null">author=#{author},</if>
+  		<if test="publisher!=null">publisher=#{publisher},</if>
+  		<if test="time!=null">time=#{time},</if>
+  		<if test="price!=null">price=#{price},</if>
+  		<if test="balance!=null">balance=#{balance},</if>
+		<if test="depict!=null">depict=#{depict},</if>
+ 	</trim>
+	 where id=#{id}
+  </update>
+  <update id="updateBook" parameterType="BookBean">
+  	update book 
+	<trim prefix="set" suffixOverrides=",">
+		<if test="title!=null">title=#{title},</if>
+  		<if test="image!=null">image=#{image},</if>
+  		<if test="author!=null">author=#{author},</if>
+  		<if test="publisher!=null">publisher=#{publisher},</if>
+  		<if test="time!=null">time=#{time},</if>
+  		<if test="price!=null">price=#{price},</if>
+  		<if test="balance!=null">balance=#{balance},</if>
+		<if test="depict!=null">depict=#{depict},</if>
+ 	</trim>
+ where id=#{id}
+  </update>
+</mapper>

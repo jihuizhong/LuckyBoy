@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.UserMapper">
+ <select id="findById" parameterType="int" resultMap="mapId">
+   select * from user where u_id = #{id}
+  </select>
+   <resultMap type="UserBean" id="mapId">
+  	<id property="id" column="u_id"/>
+  	<result property="name" column="u_name"/>
+  	<result property="pwd" column="u_pwd"/>
+  </resultMap>
+  <select id="findByName" parameterType="String" resultMap="mapName">
+   select * from user where u_name = #{name}
+  </select>
+  <resultMap type="UserBean" id="mapName">
+  	<id property="id" column="u_id"/>
+  	<result property="name" column="u_name"/>
+  	<result property="pwd" column="u_pwd"/>
+  </resultMap>
+  <insert id="insertUser" parameterType="UserBean" useGeneratedKeys="true" keyProperty="id">
+  		insert into user(u_name,u_pwd)values(#{name},#{pwd});
+  </insert>
+  <select id="findByField" parameterType="UserBean" resultMap="map">
+  	select * from user where u_id=#{id}
+  </select>
+  <resultMap type="UserBean" id="map">
+  	<id property="id" column="u_id"/>
+  	<result property="name" column="u_name"/>
+  	<result property="pwd" column="u_pwd"/>
+  </resultMap>
+</mapper>
